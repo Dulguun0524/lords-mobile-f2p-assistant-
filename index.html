@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lords Mobile F2P Calculator</title>
+<style>
+body {
+  background: #151525;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+.container {
+  max-width: 450px;
+  margin: auto;
+  background: #24243a;
+  padding: 22px;
+  border-radius: 16px;
+}
+h1 { color: #e7bd65; text-align: center; }
+label { display: block; margin-top: 18px; }
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin-top: 7px;
+  border-radius: 8px;
+  border: 1px solid #777;
+  font-size: 17px;
+}
+.result {
+  margin-top: 22px;
+  padding: 18px;
+  background: #35354e;
+  border-radius: 10px;
+  text-align: center;
+}
+.number { color: #e7bd65; font-size: 28px; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>⚔ Lords Mobile F2P</h1>
+<h2>Gem Calculator</h2>
+
+<label>Одоогийн Gem</label>
+<input id="current" type="number" min="0" value="5000">
+
+<label>Зорилтот Gem</label>
+<input id="target" type="number" min="0" value="20000">
+
+<label>Өдөрт цуглуулах Gem</label>
+<input id="daily" type="number" min="0" value="500">
+
+<div class="result">
+<p>Дутуу Gem</p>
+<div class="number" id="remaining">15,000</div>
+<p>Зорилгод хүрэх хугацаа</p>
+<div class="number" id="days">30 өдөр</div>
+</div>
+</div>
+
+<script>
+function calculate() {
+  const current = Math.max(0, Number(document.getElementById("current").value) || 0);
+  const target = Math.max(0, Number(document.getElementById("target").value) || 0);
+  const daily = Math.max(0, Number(document.getElementById("daily").value) || 0);
+  const remaining = Math.max(0, target - current);
+
+  document.getElementById("remaining").textContent =
+    remaining.toLocaleString("en-US");
+
+  document.getElementById("days").textContent =
+    remaining === 0 ? "Зорилго биелсэн!" :
+    daily === 0 ? "Өдөрт Gem оруулна уу" :
+    Math.ceil(remaining / daily) + " өдөр";
+}
+
+document.querySelectorAll("input").forEach(input => {
+  input.addEventListener("input", calculate);
+});
+calculate();
+</script>
+</body>
+</html>
